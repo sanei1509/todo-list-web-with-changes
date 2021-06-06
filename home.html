@@ -1,118 +1,381 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
-        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
-
-    <!-- Tema bootswatch minty -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
-        integrity="sha256-cgt3hF1c3FZ6WVory/sZ9YX5EH/xvfIh3QXJ8EjHMqE=" crossorigin="anonymous" />
+    <!-- Bootswatch minty -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.0.1/dist/minty/bootstrap.min.css"
+      integrity="sha256-cgt3hF1c3FZ6WVory/sZ9YX5EH/xvfIh3QXJ8EjHMqE="
+      crossorigin="anonymous"
+    />
 
     <!-- Iconos -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
 
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="styles/general.css" />
     <link rel="stylesheet" href="styles/home.css" />
 
     <title>Tasky</title>
-</head>
+  </head>
 
-<body onload="renderToDos()">
+  <body onload="renderToDos()">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                Tasky <i class="bi bi-check2-circle"></i>
-            </a>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          Task<i class="bi bi-check2-circle"></i>
+        </a>
 
-            <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Preferencias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Salir</a>
-                    </li>
-                </ul>
-            </div>
+        <button
+          class="navbar-toggler collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbar-collapse"
+          aria-controls="navbar-collapse"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbar-collapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" href="home.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="stats.html">Estadísticas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="preferences.html">Preferencias</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Salir</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <main class="container">
-        <div class="bg-light p-4 rounded">
-            <div class="input-group mb-5">
-                <input type="text" class="form-control" placeholder="Terminos de busqueda ..."
-                    aria-label="Recipient's username" aria-describedby="button-addon2">
-                <button onclick="applySearchFilter()" class="btn btn-secondary" type="button" id="button-addon2">Buscar</button>
-            </div>
-
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col">
-                    <div class="card border-success mb-3">
-                        <div class="card-body">
-                            <h4 class="card-title">Primary card title</h4>
-                            <p class="card-text text-truncate">Some quick example text to build on the card title and
-                                make up the bulk of the card's content.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card border-success mb-3">
-                        <div class="card-body">
-                            <h4 class="card-title">Primary card title</h4>
-                            <p class="card-text text-truncate">Some quick example text to build on the card title and
-                                make up the bulk of the card's content.</p>
-                        </div>
-                        <div class="card-footer">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="create-new-todo-hint"></div>
+      <div class="bg-light p-4 rounded">
+        <div class="input-group mb-4">
+          <input
+            id="search-keywords"
+            type="text"
+            class="form-control"
+            placeholder="Terminos de busqueda ..."
+          />
+          <button
+            class="btn btn-secondary"
+            type="button"
+            onclick="applySearchFilter()"
+          >
+            Buscar
+          </button>
         </div>
+
+        <ul class="nav nav-pills nav-fill mb-4">
+          <li class="nav-item">
+            <a
+              id="filtro"
+              class="nav-link active"
+              onclick="applyTypeFilter('MY_DAY')"
+              >Mi día</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              id="filtro2"
+              class="nav-link"
+              onclick="applyTypeFilter('IMPORTANT')"
+              >Importantes</a
+            >
+          </li>
+          <li class="nav-item">
+            <a id="filtro3" class="nav-link" onclick="applyTypeFilter('ALL')"
+              >Todas</a
+            >
+          </li>
+        </ul>
+
+        <div
+          class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
+          data-masonry='{ "percentPosition": true }'
+        >
+          <div class="col">
+            <div class="card border-success">
+              <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+
+              <div class="card-floating-actions d-flex">
+                <button
+                  type="button"
+                  class="
+                    fab fab-mini
+                    me-2
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    bg-primary
+                  "
+                >
+                  <i class="bi bi-check2"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="
+                    fab fab-mini
+                    me-2
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    bg-info
+                  "
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="
+                    fab fab-mini
+                    me-2
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    bg-danger
+                  "
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card border-success">
+              <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content. Some quick example text to
+                  build on the card title and make up the bulk of the card's
+                  content. Some quick example text to build on the card title
+                  and make up the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card border-success">
+              <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+              </div>
+
+              <div class="card-floating-actions d-flex">
+                <button
+                  type="button"
+                  class="
+                    fab fab-mini
+                    me-2
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    bg-primary
+                  "
+                >
+                  <i class="bi bi-check2"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="
+                    fab fab-mini
+                    me-2
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    bg-info
+                  "
+                >
+                  <i class="bi bi-eye"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="
+                    fab fab-mini
+                    me-2
+                    d-flex
+                    justify-content-center
+                    align-items-center
+                    bg-danger
+                  "
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card border-success">
+              <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content. Some quick example text to
+                  build on the card title and make up the bulk of the card's
+                  content. Some quick example text to build on the card title
+                  and make up the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="card border-success">
+              <div class="card-body">
+                <h4 class="card-title">Primary card title</h4>
+                <p class="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card's content.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="create-new-todo-hint"></div>
+      </div>
     </main>
 
     <div class="loader-overlay">
-        <div class="d-flex h-100 justify-content-center align-items-center">
-            <div class="spinner-grow text-primary" role="status">
-                <span class="visually-hidden">Cargando...</span>
-            </div>
+      <div class="d-flex h-100 justify-content-center align-items-center">
+        <div class="spinner-grow text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
         </div>
+      </div>
     </div>
 
-    <div class="fab d-flex justify-content-center align-items-center" onclick="openToDoCreator()">
-        <i class="bi bi-plus"></i>
+    <button
+      class="
+        fab fab-fixed
+        d-flex
+        justify-content-center
+        align-items-center
+        bg-success
+      "
+      onclick="openToDoCreator()"
+    >
+      <i class="bi bi-plus"></i>
+    </button>
+
+    <div class="modal fade" id="todo-creator-modal">
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Crea una tarea</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="createToDo()"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="delete-todo-modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Eliminar tarea</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">...</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cerrar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="deleteToDo()"
+            >
+              Guardar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
 
     <template id="todo-temlpate"></template>
 
-    <!-- Script bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
-        crossorigin="anonymous"></script>
+    <!-- Bootstrap -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Masonry -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+      integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <!-- Chartsjs -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.3.2/chart.min.js"
+      integrity="sha512-VCHVc5miKoln972iJPvkQrUYYq7XpxXzvqNfiul1H4aZDwGBGC0lq373KNleaB2LpnC2a/iNfE5zoRYmB4TRDQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
     <!-- Custom scripts -->
     <script src="scripts/general.js"></script>
     <script src="scripts/todos.js"></script>
-</body>
-
+  </body>
 </html>
