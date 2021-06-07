@@ -1,7 +1,15 @@
 body {
-    padding-top: 4.5rem;
+  padding-top: 4.5rem;
 }
 
 .create-new-todo-hint {
-    display: none;
+  display: none;
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+.nav.nav-pills > li {
+  cursor: pointer;
 }
