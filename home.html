@@ -25,7 +25,7 @@
     <title>Tasky</title>
   </head>
 
-  <body onload="renderToDos()">
+  <body onload="initialLoad()">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -104,161 +104,14 @@
         </ul>
 
         <div
+          id="todos-container"
           class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"
           data-masonry='{ "percentPosition": true }'
-        >
-          <div class="col">
-            <div class="card border-success">
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-              </div>
+        ></div>
 
-              <div class="card-floating-actions d-flex">
-                <button
-                  type="button"
-                  class="
-                    fab fab-mini
-                    me-2
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                    bg-primary
-                  "
-                >
-                  <i class="bi bi-check2"></i>
-                </button>
-
-                <button
-                  type="button"
-                  class="
-                    fab fab-mini
-                    me-2
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                    bg-info
-                  "
-                >
-                  <i class="bi bi-eye"></i>
-                </button>
-
-                <button
-                  type="button"
-                  class="
-                    fab fab-mini
-                    me-2
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                    bg-danger
-                  "
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card border-success">
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content. Some quick example text to
-                  build on the card title and make up the bulk of the card's
-                  content. Some quick example text to build on the card title
-                  and make up the bulk of the card's content.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card border-success">
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-              </div>
-
-              <div class="card-floating-actions d-flex">
-                <button
-                  type="button"
-                  class="
-                    fab fab-mini
-                    me-2
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                    bg-primary
-                  "
-                >
-                  <i class="bi bi-check2"></i>
-                </button>
-
-                <button
-                  type="button"
-                  class="
-                    fab fab-mini
-                    me-2
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                    bg-info
-                  "
-                >
-                  <i class="bi bi-eye"></i>
-                </button>
-
-                <button
-                  type="button"
-                  class="
-                    fab fab-mini
-                    me-2
-                    d-flex
-                    justify-content-center
-                    align-items-center
-                    bg-danger
-                  "
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card border-success">
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content. Some quick example text to
-                  build on the card title and make up the bulk of the card's
-                  content. Some quick example text to build on the card title
-                  and make up the bulk of the card's content.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="card border-success">
-              <div class="card-body">
-                <h4 class="card-title">Primary card title</h4>
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up
-                  the bulk of the card's content.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div id="create-new-todo-hint" class="d-none">
+          <p>Aun no hay tareas creadas :(</p>
         </div>
-
-        <div class="create-new-todo-hint"></div>
       </div>
     </main>
 
@@ -349,7 +202,64 @@
       </div>
     </div>
 
-    <template id="todo-temlpate"></template>
+    <!-- TODO: REPASAR CONSTRUCCIÓN DEL TEMPLATE -->
+    <template id="todo-template">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title"><!-- Titulo --></h4>
+            <p class="card-text"><!-- Contenido --></p>
+          </div>
+
+          <div class="card-floating-actions d-flex d-none">
+            <button
+              type="button"
+              class="
+                btn-change-todo-status
+                fab fab-mini
+                me-2
+                d-flex
+                justify-content-center
+                align-items-center
+                bg-primary
+              "
+            >
+              <i class="bi"></i>
+            </button>
+
+            <button
+              type="button"
+              class="
+                btn-view-todo
+                fab fab-mini
+                me-2
+                d-flex
+                justify-content-center
+                align-items-center
+                bg-info
+              "
+            >
+              <i class="bi bi-eye"></i>
+            </button>
+
+            <button
+              type="button"
+              class="
+                btn-delete-todo
+                fab fab-mini
+                me-2
+                d-flex
+                justify-content-center
+                align-items-center
+                bg-danger
+              "
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </template>
 
     <!-- Bootstrap -->
     <script
